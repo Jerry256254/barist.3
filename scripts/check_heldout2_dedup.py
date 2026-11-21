@@ -19,6 +19,7 @@ def main():
     train = [json.loads(l)["text"] for l in open(ROOT / "data/processed/train.jsonl", encoding="utf-8")]
     train_ng = [ngrams(t) for t in train]
     held = [json.loads(l)["text"] for l in open(ROOT / "data/processed/mustcatch_heldout2.jsonl", encoding="utf-8")]
+    held += [json.loads(l)["text"] for l in open(ROOT / "data/processed/mustcatch_heldout3.jsonl", encoding="utf-8")]
     worst = []
     for t in held:
         ng = ngrams(t)
@@ -26,7 +27,7 @@ def main():
         worst.append((best, t))
     worst.sort(reverse=True)
     mx = worst[0][0]
-    rep = {"n_heldout2": len(held), "n_train": len(train), "max_5gram_overlap": round(mx, 4),
+    rep = {"n_heldout2": 91, "n_heldout3": len(held) - 91, "n_train": len(train), "max_5gram_overlap": round(mx, 4),
            "gate": 0.8, "pass": mx <= 0.8, "worst_items": [(round(w, 3), t[:80]) for w, t in worst[:10]]}
     out = ROOT / "reports/heldout2_dedup.json"
     out.parent.mkdir(exist_ok=True)

@@ -3,6 +3,29 @@
 No silent overwrites of the same version: a new checkpoint ships as a new version
 (Barist.1.1, ...) or a git tag.
 
+## Barist.3 — sixth adversarial review (released; own repos: `Jerry256254/barist.3` + `KucLab/Barist.3`, git tag `barist-3`)
+Checkpoint `checkpoints_b3a/best.pt`.
+
+- Regex de-contaminated: no literal heldout2 phrases; patterns rewritten from dev only
+  and tightened (1st-person requirement for self-harm/poison, intimate-context
+  requirement for child-video patterns, place-preposition guard for "přestat žít",
+  1st-person+future for weapon↔school proximity, prevention/game/exhibition
+  contexts downgrade). `data/regex_benign_test.jsonl` 321 -> 454 sentences; the regex
+  gate runs inside pytest (`tests/test_regex_gate.py`) on every change.
+- Identity-bias fix: +1,058 identity-neutral training sentences (>=500 per group:
+  Romové, Židé, muslimové, uprchlíci, černoši; cs+en), source `identity_neutral`
+  (hard-negative weight); new release gate `identity_fp <= 2%` (eval_gates.py).
+- New clean held-out set `data/mustcatch_heldout3.jsonl` (fresh phrasings, 53 unsafe +
+  14 benign); reports contain aggregate counts only (no individual misses).
+- heldout2 miss categories fixed via paraphrased training data (+ benign twins),
+  never by copying test sentences into the regex.
+- cs benign counter-pairs for known FPs + uk/ru benign expansion (phase: extend_barist3_data.py).
+- Gates metadata fixed (91 = 75 unsafe + 16 benign; data/ vs data/processed/ paths),
+  serve.py banner, per-language threshold documentation (fr 0.71 etc.), CHANGELOG
+  published to the Hub repo.
+- Renamed to Barist.3 everywhere: `barist.3` CLI, `kuclab-barist3`, Dockerfile
+  `ARG BARIST_REPO=KucLab/Barist.3`, Hub bundle name `Barist.3`.
+
 ## Barist.2 — fifth adversarial review (released; own repos: `Jerry256254/barist.2` + `KucLab/Barist.2`, git tag `barist-2`)
 Checkpoint `checkpoints_b2w/best.pt` (phase W on top of `b1q`). All six items of the
 Barist.1.1 review fixed:

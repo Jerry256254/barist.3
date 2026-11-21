@@ -17,3 +17,4 @@ reports/*.json
 runs/
 .venv/
 checkpoints_b2*/
+checkpoints_b3*/

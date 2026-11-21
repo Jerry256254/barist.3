@@ -51,6 +51,7 @@ def main() -> None:
     for name, path, rep in [
         ("dev", Path("data/processed/mustcatch_dev.jsonl"), "reports/mustcatch_dev.json"),
         ("heldout2", Path("data/processed/mustcatch_heldout2.jsonl"), "reports/mustcatch_heldout2.json"),
+        ("heldout3", Path("data/processed/mustcatch_heldout3.jsonl"), "reports/mustcatch_heldout3.json"),
     ]:
         if not path.exists():
             continue

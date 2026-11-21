@@ -113,7 +113,7 @@ def main() -> None:
     pipe = CenserPipeline(args.dir, device=args.device)
     limiter = RateLimiter(float(os.environ.get("RATE_LIMIT_PER_MIN", "600")))
     server = ThreadingHTTPServer((args.host, args.port), make_handler(pipe, limiter, args.dir))
-    print(f"censer serve: model={args.dir} device={pipe.device} on http://{args.host}:{args.port}")
+    print(f"barist.3 serve: model={args.dir} device={pipe.device} on http://{args.host}:{args.port}")
     print("  POST /classify {\"texts\": [...]}   POST /classify-one {\"text\": ...}   GET /health")
     server.serve_forever()
 

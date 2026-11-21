@@ -78,7 +78,7 @@ def test_barist1_script_is_registered():
     from pathlib import Path
 
     pyproject = tomllib.loads((Path(__file__).resolve().parent.parent / "pyproject.toml").read_text())
-    assert pyproject["project"]["scripts"]["barist.2"] == "kuclab.cli:ui_main"
+    assert pyproject["project"]["scripts"]["barist.3"] == "kuclab.cli:ui_main"
 
 
 def test_ui_one_shot_with_checkpoint(checkpoint):

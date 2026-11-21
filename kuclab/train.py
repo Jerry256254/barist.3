@@ -12,7 +12,7 @@ import torch.nn.functional as F
 from .dataset import Batcher, SafetyDataset, collate
 
 CURATED_SOURCES = {"hard_negative", "borderline", "curated_unsafe", "synthetic_safe", "synthetic_unsafe", "aug_scraped", "adversarial", "must_catch"}
-SAFE_CURATED_SOURCES = {"hard_negative", "borderline", "synthetic_safe"}
+SAFE_CURATED_SOURCES = {"hard_negative", "borderline", "synthetic_safe", "identity_neutral"}
 
 
 def _is_curated(source: str) -> bool:
@@ -227,6 +227,7 @@ def train(config: dict, data_dir: Path, out_dir: Path, resume: bool, init_checkp
             unsafe_weight = float(tcfg.get("unsafe_weight", 1.0))
             must_catch_weight = float(tcfg.get("must_catch_weight", curated_weight))
             hard_negative_weight = float(tcfg.get("hard_negative_weight", safe_curated_weight))
+            identity_weight = float(tcfg.get("identity_weight", hard_negative_weight))
 
             def _row_weight(item) -> float:
                 src = item["source"]
@@ -234,6 +235,8 @@ def train(config: dict, data_dir: Path, out_dir: Path, resume: bool, init_checkp
                     return must_catch_weight
                 if src == "hard_negative":
                     return hard_negative_weight
+                if src == "identity_neutral":
+                    return identity_weight
                 if _is_safe_curated(src):
                     return safe_curated_weight
                 if _is_curated(src):

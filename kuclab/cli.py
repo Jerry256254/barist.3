@@ -20,13 +20,13 @@ from .langdetect import detect_lang, must_catch_hit, review_hit, is_support_cont
 
 
 
-BANNER = "Barist.2 - napis text, Enter. 'exit' pro konec."
+BANNER = "Barist.3 - napis text, Enter. 'exit' pro konec."
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="barist.2",
-        description="Barist.2: tiny multilingual safety classifier. Prints safe or unsafe.",
+        prog="barist.3",
+        description="Barist.3: tiny multilingual safety classifier. Prints safe or unsafe.",
     )
     parser.add_argument("text", nargs="*", help="text to classify; omit to read stdin or use --repl")
     parser.add_argument("--checkpoint", default="checkpoints/best.pt")
@@ -63,7 +63,7 @@ def _color(text: str, code: str) -> str:
 class HubClassifier:
     """The published model from the Hub, loaded with plain transformers."""
 
-    def __init__(self, repo: str = "KucLab/Barist.2", device: str | None = None) -> None:
+    def __init__(self, repo: str = "KucLab/Barist.3", device: str | None = None) -> None:
         import torch
         from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
@@ -92,7 +92,7 @@ class HubClassifier:
         thr = float(lang_thr.get(lang, lang_thr.get("default", 0.5)))
         label = "unsafe" if p >= thr else "safe"
         cats = []
-        hit = must_catch_hit(text)  # Barist.2 hard pre-filter
+        hit = must_catch_hit(text)  # Barist.3 hard pre-filter
         if hit:
             label = "unsafe"
         help_ctx = is_support_context(text)
@@ -133,7 +133,7 @@ class HubClassifier:
 
 def run_ui(predict, source: str) -> int:
     """Small interactive terminal UI: phrase in, safe/unsafe + score out."""
-    print(f"Barist.2 - interactive terminal UI  [{source}]")
+    print(f"Barist.3 - interactive terminal UI  [{source}]")
     print("Type a phrase, Enter to classify. 'exit' to quit.\n")
     while True:
         try:
@@ -159,14 +159,14 @@ def run_ui(predict, source: str) -> int:
 
 
 def ui_main(argv: list[str] | None = None) -> int:
-    """Entry point for the `barist.2` command."""
+    """Entry point for the `barist.3` command."""
     parser = argparse.ArgumentParser(
-        prog="barist.2",
-        description="Barist.2 terminal UI: classify text as safe/unsafe (+ categories). "
+        prog="barist.3",
+        description="Barist.3 terminal UI: classify text as safe/unsafe (+ categories). "
         "Run without arguments for the interactive UI.",
     )
     parser.add_argument("text", nargs="*", help="phrase to classify once; omit to open the interactive UI")
-    parser.add_argument("--repo", default="KucLab/Barist.2", help="Hub repo id of the model")
+    parser.add_argument("--repo", default="KucLab/Barist.3", help="Hub repo id of the model")
     parser.add_argument("--checkpoint", default=None, help="use a local training checkpoint instead of the Hub model")
     parser.add_argument("--device", default=None, help="cuda / cpu (default: auto)")
     parser.add_argument("--json", action="store_true", help="one-shot JSON output")

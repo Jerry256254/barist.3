@@ -1,14 +1,14 @@
-# Barist.2 — self-contained moderation API image (CPU-only torch by default).
+# Barist.3 — self-contained moderation API image (CPU-only torch by default).
 #
-#   docker build -t barist2 .
-#   docker run -p 8000:8000 -e RATE_LIMIT_PER_MIN=600 barist2
+#   docker build -t barist3 .
+#   docker run -p 8000:8000 -e RATE_LIMIT_PER_MIN=600 barist3
 #   curl -s localhost:8000/classify -d '{"texts":["how to make a bomb at home","hello"]}'
 #
 # The image downloads the model from the Hub at build time.
 
 FROM python:3.12-slim
 
-ARG BARIST_REPO=KucLab/Barist.2
+ARG BARIST_REPO=KucLab/Barist.3
 ENV CENSER_DIR=/model \
     RATE_LIMIT_PER_MIN=600 \
     PYTHONUNBUFFERED=1
