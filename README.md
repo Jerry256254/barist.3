@@ -1,3 +1,6 @@
+> **Successor: [Barist.4](https://huggingface.co/KucLab/Barist.4)** (GitHub: [Jerry256254/barist.4](https://github.com/Jerry256254/barist.4)) — sixth adversarial review: glued-context regex bypass closed (context can only downgrade to needs_review/needs_support, never safe; 2nd/3rd-person poison, weapons, market exceptions), category hard block (sexual_abuse/self_harm >= 0.3) in ALL languages, heldout3 aggregate-only reports, 1,140 new ollama-generated training rows, train purged against heldout2+3 (dedup gate 0.75). Honest per-gate table: heldout2 model-only 52/75 = Censer.9, +prefilter 68/75 best-ever. This repo is kept as-is.
+
+
 # Barist.3
 
 > **Naming note:** this is the successor of the Censer line (Censer.1–.9). Too many
